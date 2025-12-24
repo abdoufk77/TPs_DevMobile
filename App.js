@@ -1,4 +1,4 @@
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View, Text } from "react-native";
 
 export default function App() {
   return (
@@ -8,6 +8,7 @@ export default function App() {
         style={styles.logo}
         resizeMode="contain"
       />
+      <Text style={styles.schoolName}>EMSI MAARIF</Text>
     </View>
   );
 }
@@ -22,5 +23,12 @@ const styles = StyleSheet.create({
   logo: {
     width: 200,
     height: 200,
+  },
+  schoolName: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#1f2937",
+    marginTop: 20,
+    letterSpacing: 1,
   },
 });
