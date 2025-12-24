@@ -1,33 +1,20 @@
-import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import AuthProvider, { AuthContext } from "./context/AuthContext";
+import AppDrawer from "./navigation/AppDrawer";
+import LoginScreen from "./screens/LoginScreen";
+import { useContext } from "react";
 
-import HomeScreen from "./screens/HomeScreen";
-import DetailsScreen from "./screens/DetailsScreen";
-import SettingsScreen from "./screens/SettingsScreen";
-
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
-
-// --- Navigation par pile ---
-function HomeStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Accueil" component={HomeScreen} />
-      <Stack.Screen name="Details" component={DetailsScreen} />
-    </Stack.Navigator>
-  );
+function RootNavigator() {
+  const { user } = useContext(AuthContext);
+  return user ? <AppDrawer /> : <LoginScreen />;
 }
 
-// --- Navigation par onglets ---
 export default function App() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="Maison" component={HomeStack} />
-        <Tab.Screen name="Paramètres" component={SettingsScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <RootNavigator />
+      </NavigationContainer>
+    </AuthProvider>
   );
 }
