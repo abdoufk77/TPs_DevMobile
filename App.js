@@ -19,6 +19,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#f6f7fb",
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   logo: {
     width: 200,
