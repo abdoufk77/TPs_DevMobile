@@ -1,9 +1,16 @@
-import { Text, View } from "react-native";
+import { StatusBar, View, StyleSheet } from "react-native";
+
+import { CardList } from "./components/CardList";
 
 export default function App() {
   return (
-    <View>
-      <Text>hello React Native</Text>
+    <View style={styles.screen}>
+      <StatusBar />
+      <CardList />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: "#f6f7fb" },
+});
