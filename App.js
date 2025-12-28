@@ -1,18 +1,30 @@
-import { useContext } from "react";
-import { View, StyleSheet } from "react-native";
+import { useEffect, useState, useContext } from "react";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { initDB } from "./services/database";
 import { ThemeProvider, ThemeContext } from "./context/ThemeContext";
-import TodoListFetchScreen from "./screens/TodoListFetchScreen";
+import TodoListOfflineScreen from "./screens/TodoListOfflineScreen";
 function MainApp() {
   const { theme } = useContext(ThemeContext);
   return (
     <View
       style={[styles.container, theme === "dark" ? styles.dark : styles.light]}
     >
-      <TodoListFetchScreen />
+      <TodoListOfflineScreen />
     </View>
   );
 }
 export default function App() {
+  const [dbReady, setDbReady] = useState(false);
+  useEffect(() => {
+    const prepareDb = async () => {
+      await initDB(); // attendre SQLite
+      setDbReady(true); // OK pour afficher l’app
+    };
+    prepareDb();
+  }, []);
+  if (!dbReady) {
+    return <ActivityIndicator size="large" />;
+  }
   return (
     <ThemeProvider>
       <MainApp />
